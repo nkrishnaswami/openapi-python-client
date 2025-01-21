@@ -72,7 +72,7 @@ def empty_response(
             name=response_name,
             default=None,
             required=True,
-            python_name=PythonIdentifier(value=response_name, prefix=config.field_prefix),
+            python_name=PythonIdentifier(value=response_name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             description=data.description if isinstance(data, oai.Response) else None,
             example=None,
         ),

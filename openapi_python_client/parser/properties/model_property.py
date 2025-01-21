@@ -109,7 +109,7 @@ class ModelProperty(PropertyProtocol):
             default=None,
             required=required,
             name=name,
-            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             example=data.example,
         )
         if class_info.name in schemas.classes_by_name:

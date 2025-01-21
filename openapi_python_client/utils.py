@@ -3,7 +3,7 @@ from __future__ import annotations
 import builtins
 import re
 from email.message import Message
-from keyword import iskeyword
+from keyword import iskeyword, issoftkeyword
 from typing import Any
 
 from .config import Config
@@ -14,11 +14,11 @@ DELIMITERS = r"\. _-"
 class PythonIdentifier(str):
     """A snake_case string which has been validated / transformed into a valid identifier for Python"""
 
-    def __new__(cls, value: str, prefix: str, skip_snake_case: bool = False) -> PythonIdentifier:
+    def __new__(cls, value: str, prefix: str, skip_snake_case: bool = False, reserve_soft_keywords: bool = False) -> PythonIdentifier:
         new_value = sanitize(value)
         if not skip_snake_case:
             new_value = snake_case(new_value)
-        new_value = fix_reserved_words(new_value)
+        new_value = fix_reserved_words(new_value, reserve_soft_keywords)
 
         if not new_value.isidentifier() or value.startswith("_"):
             new_value = f"{prefix}{new_value}"
@@ -61,16 +61,19 @@ RESERVED_WORDS = (set(dir(builtins)) | {"self", "true", "false", "datetime"}) - 
 }
 
 
-def fix_reserved_words(value: str) -> str:
+def fix_reserved_words(value: str, reserve_soft_keywords: bool = True) -> str:
     """
     Using reserved Python words as identifiers in generated code causes problems, so this function renames them.
 
     Args:
         value: The identifier to-be that should be renamed if it's a reserved word.
+        reserve_soft_keywords: Controls whether soft keywords are reserved.
 
     Returns:
         `value` suffixed with `_` if it was a reserved word.
     """
+    if not reserve_soft_keywords and issoftkeyword(value):
+        return value
     if value in RESERVED_WORDS or iskeyword(value):
         return f"{value}_"
     return value

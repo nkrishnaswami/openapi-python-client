@@ -92,7 +92,7 @@ class Project:
         self.env.globals.update(
             config=config,
             utils=utils,
-            python_identifier=lambda x: utils.PythonIdentifier(x, config.field_prefix),
+            python_identifier=lambda x: utils.PythonIdentifier(x, config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             class_name=lambda x: utils.ClassName(x, config.field_prefix),
             package_name=self.package_name,
             package_dir=self.package_dir,
@@ -281,7 +281,7 @@ class Project:
             )
 
             for endpoint in collection.endpoints:
-                module_path = tag_dir / f"{utils.PythonIdentifier(endpoint.name, self.config.field_prefix)}.py"
+                module_path = tag_dir / f"{utils.PythonIdentifier(endpoint.name, self.config.field_prefix, reserve_soft_keywords=self.config.reserve_soft_keywords)}.py"
                 module_path.write_text(
                     endpoint_template.render(
                         endpoint=endpoint,

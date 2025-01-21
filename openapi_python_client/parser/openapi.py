@@ -65,7 +65,7 @@ class EndpointCollection:
                 if operation is None:
                     continue
 
-                tags = [utils.PythonIdentifier(value=tag, prefix="tag") for tag in operation.tags or ["default"]]
+                tags = [utils.PythonIdentifier(value=tag, prefix="tag", reserve_soft_keywords=config.reserve_soft_keywords) for tag in operation.tags or ["default"]]
                 if not config.generate_all_tags:
                     tags = tags[:1]
 

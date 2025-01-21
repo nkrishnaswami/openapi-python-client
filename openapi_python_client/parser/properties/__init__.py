@@ -54,7 +54,7 @@ def _string_based_property(
 ) -> StringProperty | DateProperty | DateTimeProperty | FileProperty | UuidProperty | PropertyError:
     """Construct a Property from the type "string" """
     string_format = data.schema_format
-    python_name = utils.PythonIdentifier(value=name, prefix=config.field_prefix)
+    python_name = utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords)
     if string_format == "date-time":
         return DateTimeProperty.build(
             name=name,
@@ -129,7 +129,7 @@ def _property_from_ref(
         existing,
         required=required,
         name=name,
-        python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+        python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
         default=default,  # type: ignore # mypy can't tell that default comes from the same class...
     )
 
@@ -189,7 +189,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
                 name=name,
                 required=required,
                 default=data.default,
-                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                 description=data.description,
                 example=data.example,
             ),
@@ -229,7 +229,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
                 required=required,
                 default=data.default,
                 const=data.const,
-                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                 description=data.description,
             ),
             schemas,
@@ -245,7 +245,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
                 name=name,
                 default=data.default,
                 required=required,
-                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                 description=data.description,
                 example=data.example,
             ),
@@ -257,7 +257,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
                 name=name,
                 default=data.default,
                 required=required,
-                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                 description=data.description,
                 example=data.example,
             ),
@@ -269,7 +269,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
                 name=name,
                 required=required,
                 default=None,
-                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                 description=data.description,
                 example=data.example,
             ),
@@ -302,7 +302,7 @@ def property_from_data(  # noqa: PLR0911, PLR0912
             name=name,
             required=required,
             default=data.default,
-            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             description=data.description,
             example=data.example,
         ),

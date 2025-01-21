@@ -83,7 +83,7 @@ class EnumProperty(PropertyProtocol):
                     name=name,
                     required=required,
                     default="None",
-                    python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+                    python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
                     description=None,
                     example=None,
                 ),
@@ -140,7 +140,7 @@ class EnumProperty(PropertyProtocol):
             values=values,
             value_type=value_type,
             default=None,
-            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix),
+            python_name=utils.PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             description=data.description,
             example=data.example,
         )

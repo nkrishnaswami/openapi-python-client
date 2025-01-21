@@ -85,7 +85,7 @@ class PropertyProtocol(Protocol):
         object.__setattr__(
             self,
             "python_name",
-            PythonIdentifier(value=new_name, prefix=config.field_prefix, skip_snake_case=skip_snake_case),
+            PythonIdentifier(value=new_name, prefix=config.field_prefix, skip_snake_case=skip_snake_case, reserve_soft_keywords=config.reserve_soft_keywords),
         )
 
     def get_base_type_string(self, *, quoted: bool = False) -> str:

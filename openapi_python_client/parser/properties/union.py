@@ -83,7 +83,7 @@ class UnionProperty(PropertyProtocol):
             required=required,
             default=None,
             inner_properties=sub_properties,
-            python_name=PythonIdentifier(value=name, prefix=config.field_prefix),
+            python_name=PythonIdentifier(value=name, prefix=config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords),
             description=data.description,
             example=data.example,
         )

@@ -74,7 +74,7 @@ class Class:
             module_name = override.module_name
         else:
             module_name = class_name
-        module_name = PythonIdentifier(module_name, config.field_prefix)
+        module_name = PythonIdentifier(module_name, config.field_prefix, reserve_soft_keywords=config.reserve_soft_keywords)
 
         return Class(name=class_name, module_name=module_name)
 

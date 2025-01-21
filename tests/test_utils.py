@@ -109,6 +109,27 @@ def test__fix_reserved_words(reserved_word: str, expected: str):
 
 
 @pytest.mark.parametrize(
+    "reserved_word, expected",
+    [
+        # Not reserved
+        ("not_reserved", "not_reserved"),
+        ("id", "id"),
+        # Always reserved
+        ("self", "self_"),
+        ("int", "int_"),
+        ("dict", "dict_"),
+        ("None", "None_"),
+        # Soft keywords
+        ("type", "type"),
+        ("match", "match"),
+        ("_", "_"),
+    ],
+)
+def test__fix_reserved_words__reserve_soft_keywords(reserved_word: str, expected: str):
+    assert utils.fix_reserved_words(reserved_word, reserve_soft_keywords=False) == expected
+
+
+@pytest.mark.parametrize(
     "before, after",
     [
         ("PascalCase", "PascalCase"),

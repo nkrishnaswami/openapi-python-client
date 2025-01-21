@@ -46,6 +46,7 @@ class ConfigFile(BaseModel):
     generate_all_tags: bool = False
     http_timeout: int = 5
     literal_enums: bool = False
+    reserve_soft_keywords: bool = True
 
     @staticmethod
     def load_from_path(path: Path) -> "ConfigFile":
@@ -81,6 +82,7 @@ class Config:
     content_type_overrides: dict[str, str]
     overwrite: bool
     output_path: Optional[Path]
+    reserve_soft_keywords: bool
 
     @staticmethod
     def from_sources(
@@ -122,5 +124,6 @@ class Config:
             file_encoding=file_encoding,
             overwrite=overwrite,
             output_path=output_path,
+            reserve_soft_keywords=config_file.reserve_soft_keywords
         )
         return config
